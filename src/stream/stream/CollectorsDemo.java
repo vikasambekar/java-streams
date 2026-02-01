@@ -1,6 +1,11 @@
 package stream.stream;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.IntSummaryStatistics;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class CollectorsDemo {
@@ -47,8 +52,6 @@ public class CollectorsDemo {
         List<String> fruits = Arrays.asList("Apple", "Banana", "Cherry");
         Map<String, Integer> toMap = fruits.stream().collect(Collectors.toMap(x -> x.toUpperCase(), x -> x.length()));
         System.out.println("Map ---->" + toMap);
-
-        // 8.
 
     }
 }
