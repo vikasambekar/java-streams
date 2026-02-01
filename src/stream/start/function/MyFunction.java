@@ -31,5 +31,9 @@ public class MyFunction {
         // 5. Function .identity
         Function<Integer, Integer> identity = Function.identity();
         System.out.println("Identity --->" + identity.apply(5));
+
+        // 6. Function
+        Function<String, Boolean> func5 = (x) -> x.isBlank();
+        System.out.println("Function check ---->"+func5.apply(""));
     }
 }
