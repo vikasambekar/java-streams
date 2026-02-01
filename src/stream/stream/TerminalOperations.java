@@ -1,11 +1,13 @@
 package stream.stream;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class TerminalOperations {
     /*
@@ -52,6 +54,21 @@ public class TerminalOperations {
         System.out.println("Return the first element ---->" + numList.stream().findFirst());
         System.out.println("Return the any element ---->" + numList.stream().findAny());
 
+        // 7. toArray : This is used to convert the stream into the array
+        Object[] array = Stream.of(1, 2, 3, 4).toArray();
+
+        // 8. max : This is used to return the max element,
+        // min : This is used to return the min element
+        System.out.println("Max ---->" + Stream.of(23, 43, 56).max((o1, o2) -> o1 - o2));
+        System.out.println("Min ---->" + Stream.of(23, 43, 56).min(Comparator.naturalOrder()));
+
+        // 9. forEachOrdered : Always better work with the parallelStream
+        List<Integer> intList = Arrays.asList(1, 8, 9, 11, 2, 3, 4, 5);
+        System.out.println("Using the for each");
+        intList.parallelStream().forEach(System.out::println);
+        System.out.println("Using the for each order");
+        intList.parallelStream().forEachOrdered(System.out::println);
+
         executeTheExamples();
     }
 
@@ -82,9 +99,6 @@ public class TerminalOperations {
 
         // This is used to create the stream  from the string
         IntStream charsStream = sentence.chars();
-        System.out.println("Example 5 ----> "+charsStream.filter(x -> x == 'l').count());
-
-
-
+        System.out.println("Example 5 ----> " + charsStream.filter(x -> x == 'l').count());
     }
 }

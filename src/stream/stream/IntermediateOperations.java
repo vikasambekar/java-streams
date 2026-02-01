@@ -1,6 +1,7 @@
 package stream.stream;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -42,5 +43,60 @@ public class IntermediateOperations {
                 .limit(100)                  // then takes next 100 elements
                 .count()
         );
+
+        // 7. peak : Perform action on each element as it is consumed
+        Stream.iterate(1, x -> x+1).skip(10).limit(100).peek(System.out::println).count();
+
+        // 8. flatmap : useful when each element is a collection itself, flatmap flattens the response
+        // FOR BETTER UNDERSTANDING PLEASE CHECK THE EXAMPLE
+        /*
+                map → transforms elements
+                A → B
+
+
+                flatMap → transforms and flattens
+                A → Stream<B> → B
+
+
+
+         */
+        List<List<String>> list = Arrays.asList(
+                Arrays.asList("Vikas", "Rajendra", "Ambekar"),
+                Arrays.asList("Vikas", "Rajendra", "Ambekar"),
+                Arrays.asList("Vikas", "Rajendra", "Ambekar"),
+                Arrays.asList("Vikas", "Rajendra", "Ambekar")
+        );
+        System.out.println("Flatmap example ---> "+list.stream()
+                .flatMap(x -> x.stream())
+                .map(x -> x.toUpperCase())
+                .toList());
+
+        List<String> result =
+                list.stream()
+                        .flatMap(inner -> inner.stream())
+                        .filter(name -> name.length() > 6)
+                        .toList();
+
+
+        List<List<Integer>> numbers = List.of(
+                List.of(1, 2),
+                List.of(3, 4),
+                List.of(5)
+        );
+
+        List<Integer> result1 =
+                numbers.stream()
+                        .flatMap(Collection::stream)
+                        .toList();
+
+
     }
 }
+
+/*
+    Notes :
+    - Flatmap flattens the response
+    - Example : [[1, 2], [3], [4, 5]]
+                - flatMap(x -> x.stream())   ----------------> 1, 2, 3, 4, 5 (Flatten response, internally)
+    - flatMap is required whenever one element produces many elements
+ */
